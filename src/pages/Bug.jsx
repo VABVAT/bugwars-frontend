@@ -46,7 +46,7 @@ const BugPage = () => {
               <section style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <div style={{ textAlign: 'right' }}>
                   <p style={{ margin: '0', fontWeight: 'bold' }}>{userData.email}</p>
-                  <p style={{ margin: '0' }}>Winnings: {userData.winnings}</p>
+                  <p style={{ margin: '0' }}>Winnings:${userData.winnings}</p>
                 </div>
                 <img
                     referrerPolicy="no-referrer"
@@ -59,33 +59,15 @@ const BugPage = () => {
         </header>
 
         <div style={{ display: 'flex', gap: '2rem' }}>
-          <aside style={{ width: '200px' }}>
-            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Archives</h2>
+          <aside className="w-[30%]">
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Previous results</h2>
             <nav>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-                <li><a href="#" style={{ textDecoration: 'none', color: '#000' }}>January 2025</a></li>
-                <li><a href="#" style={{ textDecoration: 'none', color: '#000' }}>February 2025</a></li>
-                <li><a href="#" style={{ textDecoration: 'none', color: '#000' }}>March 2025</a></li>
-              </ul>
+                    Nothing to see
             </nav>
           </aside>
-
-          <main style={{ flex: 1 }}>
-            <article style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>First Post</h2>
-              <p>This is the content of the first blog post.</p>
-            </article>
-
-            <article style={{ marginBottom: '2rem' }}>
-              <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Second Post</h2>
-              <p>This is the content of the second blog post.</p>
-            </article>
-
-            <article>
-              <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Third Post</h2>
-              <p>This is the content of the third blog post.</p>
-            </article>
-          </main>
+            <aside className="w-[70%]">
+                <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Upcoming Events</h2>
+            </aside>
         </div>
 
         <footer
