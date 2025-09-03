@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../index.css'
+import "../index.css";
 
 const RegisterButton = () => {
     const [message, setMessage] = useState("");
@@ -28,32 +28,34 @@ const RegisterButton = () => {
     };
 
     return (
-        <div>
+        <div className="font-serif">
+            {/* Classic button */}
             <button
                 onClick={handleRegister}
-                className="transition-all duration-500 p-1 bg-gray-300 mt-3 w-[100px] rounded-lg hover:bg-gray-800 hover:text-white focus:outline-none focus:shadow-outline"
+                className="px-4 py-1 mt-3 border border-black bg-gray-100 text-black text-sm font-semibold hover:bg-black hover:text-white focus:outline-none"
             >
                 Register
             </button>
 
+            {/* Message box */}
             {message && (
                 <div
-                    className={`mt-2 px-4 py-2 rounded flex items-center justify-between shadow-md ${
-                        isError ? "text-red-700 font-semibold bg-red-50" : "text-green-700 font-semibold bg-green-50"
+                    className={`mt-2 px-3 py-2 border text-sm font-semibold ${
+                        isError
+                            ? "border-red-600 text-red-700 bg-red-50"
+                            : "border-green-600 text-green-700 bg-green-50"
                     }`}
                 >
-                    <span>{message}</span>
-                    <button
-                        onClick={() => {setMessage("")}}
-                        className=" ml-3 text-gray-400 hover:text-gray-700 transition"
-                        aria-label="Close message"
-                        style={{ background: "transparent", border: "none", cursor: "pointer" }}
-                    >
-
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M10 8.586L4.293 2.879A1 1 0 102.879 4.293L8.586 10l-5.707 5.707a1 1 0 101.414 1.414L10 11.414l5.707 5.707a1 1 0 001.414-1.414L11.414 10l5.707-5.707a1 1 0 00-1.414-1.414L10 8.586z" clipRule="evenodd" />
-                        </svg>
-                    </button>
+                    <div className="flex justify-between items-center">
+                        <span>{message}</span>
+                        <button
+                            onClick={() => setMessage("")}
+                            className="ml-3 text-black hover:text-red-600"
+                            aria-label="Close message"
+                        >
+                            ✕
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

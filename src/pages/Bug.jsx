@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
-import img from '../../public/img.png'
+import img from "../../public/img.png";
 import RegisterButton from "../components/RegisterButton.jsx";
 
 const BugPage = () => {
@@ -10,8 +10,8 @@ const BugPage = () => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
         const url = `${baseUrl}/api/profile/`;
         fetch(url, {
-            method: 'GET',
-            credentials: 'include',
+            method: "GET",
+            credentials: "include",
         })
             .then((response) => {
                 if (!response.ok) {
@@ -20,86 +20,89 @@ const BugPage = () => {
                     }
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                return response.json()
+                return response.json();
             })
             .then((data) => {
-                console.log(data);
                 setUserData(data);
             })
             .catch((error) => {
-                console.error('Error fetching user data:', error);
-                window.location.href = '/'
+                console.error("Error fetching user data:", error);
+                window.location.href = "/";
             });
     }, []);
 
     return (
-        <div
-            style={{
-                fontFamily: 'Georgia, serif',
-                backgroundColor: 'white',
-                color: '#222',
-                lineHeight: '1.6',
-                maxWidth: '1100px',
-                margin: '0 auto',
-                padding: '1rem',
-            }}
-        >
-           <Header userData={userData} setUserData={setUserData}  />
+        <div className="font-serif bg-white text-[#222] leading-relaxed max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Header userData={userData} setUserData={setUserData} />
 
-            <div style={{display: 'flex', gap: '2rem'}}>
-                <aside className="w-[30%]">
-                    <h2 className="font-bold text-[3vh] mb-2">Previous results</h2>
-                    <nav>
-                        Nothing to see
+            <div className="flex flex-col lg:flex-row gap-8">
+                {/* Sidebar */}
+                <aside className="lg:w-1/3 w-full">
+                    <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
+                        Previous Results
+                    </h2>
+                    <nav className="text-base">
+                        <p>Nothing to see</p>
                     </nav>
                 </aside>
-                <aside className="w-[70%]">
 
-
-                    <h2 className="font-bold text-[3vh] mb-2">Upcoming Events</h2>
-                    <ul>
-                        <li>
-
-                            <h2 className="font-bold text-[2vh] mb-2">Drunk Bob and missing auth</h2>
-                            <div className="flex gap-x-8">
-                                <div className="w-[60%] space-y-4 leading-relaxed">
-                                    <p >Being drunk, Bob was completely wasted. With nothing else to do, he decided to
-                                        test a very reputable website.</p>
-                                    <p >After trying all his tricks and failing, on his last attempt he noticed that
-                                        a <b>JWT was not being verified</b>.</p>
-                                    <p>What will he do now? How will he get into the admin’s account?</p>
-                                    <p><b>That is for you to figure out.</b></p>
-
+                {/* Main Section */}
+                <aside className="lg:w-2/3 w-full">
+                    <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
+                        Upcoming Events
+                    </h2>
+                    <ul className="list-disc pl-6">
+                        <li className="mb-8">
+                            <h3 className="text-lg font-bold mb-2">
+                                Drunk Bob and Missing Auth
+                            </h3>
+                            <div className="flex flex-col md:flex-row gap-4">
+                                {/* Text */}
+                                <div className="md:w-3/5 w-full space-y-3">
+                                    <p>
+                                        Being drunk, Bob was completely wasted. With nothing else to
+                                        do, he decided to test a very reputable website.
+                                    </p>
+                                    <p>
+                                        After trying all his tricks and failing, on his last attempt
+                                        he noticed that a <b>JWT was not being verified</b>.
+                                    </p>
+                                    <p>
+                                        What will he do now? How will he get into the admin’s
+                                        account?
+                                    </p>
+                                    <p>
+                                        <b>That is for you to figure out.</b>
+                                    </p>
                                 </div>
-                                <div className="w-[40%] flex items-center justify-center">
+
+                                {/* Image */}
+                                <div className="md:w-2/5 w-full flex items-center justify-center">
                                     <img
                                         src={img}
                                         alt="Drunk Bob illustration"
-                                        className="w-[80%] max-h-64 object-contain rounded-lg shadow-md"
+                                        className="w-[90%] max-h-52 object-contain"
                                     />
                                 </div>
                             </div>
-                            <div className=" mb-4 mt-4">
+
+                            {/* Register Button */}
+                            <div className="mt-4 mb-4">
                                 <RegisterButton />
                             </div>
+
+                            {/* Note */}
                             <div>
-                                <p className="text-[14px] font-bold">Note: This is not a monetized competition</p>
+                                <p className="text-sm font-bold">
+                                    Note: This is not a monetized competition
+                                </p>
                             </div>
                         </li>
                     </ul>
                 </aside>
             </div>
 
-            <footer
-                style={{
-                    borderTop: '1px solid #ccc',
-                    marginTop: '2rem',
-                    paddingTop: '1rem',
-                    textAlign: 'center',
-                    fontSize: '0.9rem',
-                    color: '#555',
-                }}
-            >
+            <footer className="border-t border-gray-400 mt-8 pt-4 text-center text-sm text-gray-600">
                 <p>&copy; {new Date().getFullYear()} BugWars. All rights reserved.</p>
             </footer>
         </div>
