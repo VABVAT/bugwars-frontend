@@ -48,7 +48,7 @@ const BugPage = () => {
 
             <div style={{display: 'flex', gap: '2rem'}}>
                 <aside className="w-[30%]">
-                    <h2 style={{fontSize: '1.7rem', marginBottom: '1rem'}}>Previous results</h2>
+                    <h2 className="font-bold text-[3vh] mb-2">Previous results</h2>
                     <nav>
                         Nothing to see
                     </nav>
@@ -56,11 +56,11 @@ const BugPage = () => {
                 <aside className="w-[70%]">
 
 
-                    <h2 style={{fontSize: '1.7rem', marginBottom: '1rem'}}>Upcoming Events</h2>
+                    <h2 className="font-bold text-[3vh] mb-2">Upcoming Events</h2>
                     <ul>
                         <li>
 
-                            <h3>Drunk Bob and missing auth</h3>
+                            <h2 className="font-bold text-[2vh] mb-2">Drunk Bob and missing auth</h2>
                             <div className="flex gap-x-8">
                                 <div className="w-[60%] space-y-4 leading-relaxed">
                                     <p >Being drunk, Bob was completely wasted. With nothing else to do, he decided to
@@ -69,6 +69,7 @@ const BugPage = () => {
                                         a <b>JWT was not being verified</b>.</p>
                                     <p>What will he do now? How will he get into the admin’s account?</p>
                                     <p><b>That is for you to figure out.</b></p>
+
                                 </div>
                                 <div className="w-[40%] flex items-center justify-center">
                                     <img
@@ -78,8 +79,11 @@ const BugPage = () => {
                                     />
                                 </div>
                             </div>
-                            <div>
+                            <div className=" mb-4 mt-4">
                                 <RegisterButton />
+                            </div>
+                            <div>
+                                <p className="text-[14px] font-bold">Note: This is not a monetized competition</p>
                             </div>
                         </li>
                     </ul>

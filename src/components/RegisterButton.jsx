@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../index.css'
 
 const RegisterButton = () => {
     const [message, setMessage] = useState("");
@@ -30,7 +31,7 @@ const RegisterButton = () => {
         <div>
             <button
                 onClick={handleRegister}
-                className="p-2 bg-blue-500 text-white rounded"
+                className="transition-all duration-500 p-1 bg-gray-300 mt-3 w-[100px] rounded-lg hover:bg-gray-800 hover:text-white focus:outline-none focus:shadow-outline"
             >
                 Register
             </button>
@@ -43,11 +44,15 @@ const RegisterButton = () => {
                 >
                     <span>{message}</span>
                     <button
-                        onClick={() => setMessage("")}
-                        className="ml-3 text-gray-400 hover:text-gray-700 transition"
-                        aria-label="Close"
+                        onClick={() => {setMessage("")}}
+                        className=" ml-3 text-gray-400 hover:text-gray-700 transition"
+                        aria-label="Close message"
+                        style={{ background: "transparent", border: "none", cursor: "pointer" }}
                     >
-                        Hide
+
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fillRule="evenodd" d="M10 8.586L4.293 2.879A1 1 0 102.879 4.293L8.586 10l-5.707 5.707a1 1 0 101.414 1.414L10 11.414l5.707 5.707a1 1 0 001.414-1.414L11.414 10l5.707-5.707a1 1 0 00-1.414-1.414L10 8.586z" clipRule="evenodd" />
+                        </svg>
                     </button>
                 </div>
             )}
