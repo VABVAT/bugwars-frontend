@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
 import img from "../../public/img.png";
 import RegisterButton from "../components/RegisterButton.jsx";
+import StartButton from "../components/StartButton.jsx";
+import Stats from "../components/Stats.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
+    const [render, setRender ] = useState(0);
 
     useEffect(() => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -88,9 +91,9 @@ const BugPage = () => {
 
                             {/* Register Button */}
                             <div className="mt-4 mb-4">
-                                <RegisterButton />
+                                <StartButton render={render} setRender={setRender} />
                             </div>
-
+                            <Stats render={render} setRender={setRender} />
                             {/* Note */}
                             <div>
                                 <p className="text-sm font-bold">
