@@ -77,6 +77,7 @@ const BugPage = () => {
                                     <p>
                                         <b>That is for you to figure out.</b>
                                     </p>
+                                    <p className="text-xs font-bold">Tip: You have to log into admin@gmail.com </p>
                                 </div>
 
                                 {/* Image */}
@@ -96,9 +97,13 @@ const BugPage = () => {
                             <Stats render={render} setRender={setRender} />
                             {/* Note */}
                             <div>
-                                <p className="text-sm font-bold">
-                                    Note: This is not a monetized competition
-                                </p>
+                                <p className="font-bold">Notes:</p>
+                                <ol>
+                                    <li className="text-gray-700 text-xs">
+                                        This competition follows the same pattern as my previous video <br/>
+                                        Thus it is not monetized and carries no cash prize
+                                    </li>
+                                </ol>
                             </div>
                         </li>
                     </ul>

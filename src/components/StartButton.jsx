@@ -47,7 +47,7 @@ const StartButton = ({render, setRender}) => {
             });
             setStarted(true);
             setRender(prev => prev + 1);
-            window.open("https://www.google.com", "_blank");
+            window.open("https://flab.bugwars.in", "_blank");
     }
 
     return (
