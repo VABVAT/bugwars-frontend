@@ -5,15 +5,17 @@ export default function Stats({render, setRender}) {
     const [startNumber, setStartNumber] = useState(0);
     const [endNumber, setEndNumber] = useState(0);
     const [finished, setFinished] = useState();
+    const [loading, setLoading] = useState(true);
     const [finishPosition, setFinishPosition] = useState(-1);
-    async function successFetcher(){
+
+    async function successFetcher() {
         const data = await fetch(`${baseUrl}/api/verify/stats/?lab=lab1`, {
-            method: "GET",
-            credentials: "include"
+            method: "GET", credentials: "include"
         });
         return await data.json();
 
     }
+
     useEffect(() => {
         successFetcher().then(response => {
             setStartNumber(response.Started);
@@ -29,6 +31,7 @@ export default function Stats({render, setRender}) {
             setEndNumber(response.Finished);
             setFinished(response.hasFinished);
             setFinishPosition(response.finishingPosition)
+            setLoading(false);
         })
     }, []);
 
@@ -57,15 +60,18 @@ export default function Stats({render, setRender}) {
         if (n >= 11 && n <= 13) return "th";
 
         switch (num % 10) {
-            case 1: return "st";
-            case 2: return "nd";
-            case 3: return "rd";
-            default: return "th";
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
         }
     }
 
-    return (
-        <div>
+    return (<div>
             <div className="mt-4">
                 <span className="text-green-500 font-bold">People started:</span> {startNumber}
             </div>
@@ -73,8 +79,16 @@ export default function Stats({render, setRender}) {
                 <span className="text-red-700 font-bold">People finished:</span> {endNumber}
             </div>
             <div className="mb-4">
-                {finished == false ? <span> You will be <span className="font-extrabold"> {endNumber+1}<sup>{ordinalSuffix(endNumber+1)}</sup></span> finisher</span> : <span> You finished <span className="font-extrabold"> {finishPosition}<sup>{ordinalSuffix(finishPosition)}</sup></span></span>}
+                {!loading ? (!finished ? (<span>
+      You will be <span className="font-extrabold">
+        {endNumber + 1}<sup>{ordinalSuffix(endNumber + 1)}</sup>
+      </span> finisher
+    </span>) : (<span>
+      You finished <span className="font-extrabold">
+        {finishPosition}<sup>{ordinalSuffix(finishPosition)}</sup>
+      </span>
+    </span>)) : null}
+
             </div>
-        </div>
-    )
+        </div>)
 }
