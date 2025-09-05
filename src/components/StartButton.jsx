@@ -21,15 +21,15 @@ const StartButton = ({render, setRender}) => {
             },
             body: JSON.stringify({ answer: value }),
         });
+        const response = await data.json();
         if(!data.ok) {
-            setError("Error occured");
+            setError(response.error);
         }else{
-            const response = await data.json();
             if(response.success == true) {
                 setSuccess(true);
-                setError("You did it..., Congratulations!");
+                setError("You did it.... Congratulations!");
             }else{
-                setError("Wrong........");
+                setError("Incorrect answer");
             }
         }
         setRender(prev => prev + 1);
@@ -61,7 +61,7 @@ const StartButton = ({render, setRender}) => {
             </button>
 
             {/* Message box */}
-            {started && (
+            {(
                 <div className="mt-4 space-x-2">
                     <input
                         type="text"

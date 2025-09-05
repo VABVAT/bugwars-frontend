@@ -4,7 +4,8 @@ export default function Stats({render, setRender}) {
     const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
     const [startNumber, setStartNumber] = useState(0);
     const [endNumber, setEndNumber] = useState(0);
-
+    const [finished, setFinished] = useState();
+    const [finishPosition, setFinishPosition] = useState(-1);
     async function successFetcher(){
         const data = await fetch(`${baseUrl}/api/verify/stats/?lab=lab1`, {
             method: "GET",
@@ -17,14 +18,27 @@ export default function Stats({render, setRender}) {
         successFetcher().then(response => {
             setStartNumber(response.Started);
             setEndNumber(response.Finished);
+            setFinished(response.hasFinished);
+            setFinishPosition(response.finishingPosition)
         })
     }, [render]);
+
+    useEffect(() => {
+        successFetcher().then(response => {
+            setStartNumber(response.Started);
+            setEndNumber(response.Finished);
+            setFinished(response.hasFinished);
+            setFinishPosition(response.finishingPosition)
+        })
+    }, []);
 
     useEffect(() => {
         const fetchData = () => {
             successFetcher().then(response => {
                 setStartNumber(response.Started);
                 setEndNumber(response.Finished);
+                setFinished(response.hasFinished);
+                setFinishPosition(response.finishingPosition)
             });
         };
 
@@ -59,7 +73,7 @@ export default function Stats({render, setRender}) {
                 <span className="text-red-700 font-bold">People finished:</span> {endNumber}
             </div>
             <div className="mb-4">
-                <span> You will be <span className="font-extrabold"> {endNumber+1}<sup>{ordinalSuffix(endNumber+1)}</sup></span> finisher</span>
+                {finished == false ? <span> You will be <span className="font-extrabold"> {endNumber+1}<sup>{ordinalSuffix(endNumber+1)}</sup></span> finisher</span> : <span> You finished <span className="font-extrabold"> {finishPosition}<sup>{ordinalSuffix(finishPosition)}</sup></span></span>}
             </div>
         </div>
     )
