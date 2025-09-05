@@ -10,8 +10,9 @@ const Home = ({ isLoggedIn }) => {
 
             {/* Subtitle / intro text */}
             <p className="text-base sm:text-lg mb-6 max-w-md text-center leading-relaxed">
-                Welcome to <span className="font-bold">BugWars</span>, where challenges
-                await and your skills are tested. Sign in to begin your journey.
+                Welcome to <span className="font-bold">BugWars</span>
+                <br/>
+                Healthy community for tech enthusiasts
             </p>
 
             {/* Sign in button (only if logged out) */}
