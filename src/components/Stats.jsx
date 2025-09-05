@@ -20,6 +20,36 @@ export default function Stats({render, setRender}) {
         })
     }, [render]);
 
+    useEffect(() => {
+        const fetchData = () => {
+            successFetcher().then(response => {
+                setStartNumber(response.Started);
+                setEndNumber(response.Finished);
+            });
+        };
+
+        // Call immediately on mount
+        fetchData();
+
+        // Set interval to run every 5 minutes (300000 ms)
+        const interval = setInterval(fetchData, 300000);
+
+        // Cleanup interval on unmount
+        return () => clearInterval(interval);
+    }, []);
+
+    function ordinalSuffix(num) {
+        const n = num % 100;
+        if (n >= 11 && n <= 13) return "th";
+
+        switch (num % 10) {
+            case 1: return "st";
+            case 2: return "nd";
+            case 3: return "rd";
+            default: return "th";
+        }
+    }
+
     return (
         <div>
             <div className="mt-4">
@@ -27,6 +57,9 @@ export default function Stats({render, setRender}) {
             </div>
             <div className="mb-4">
                 <span className="text-red-700 font-bold">People finished:</span> {endNumber}
+            </div>
+            <div className="mb-4">
+                <span> You will be <span className="font-extrabold"> {endNumber+1}<sup>{ordinalSuffix(endNumber+1)}</sup></span> finisher</span>
             </div>
         </div>
     )
