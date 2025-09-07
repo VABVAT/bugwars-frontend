@@ -4,6 +4,7 @@ import img from "../../public/img.png";
 import RegisterButton from "../components/RegisterButton.jsx";
 import StartButton from "../components/StartButton.jsx";
 import Stats from "../components/Stats.jsx";
+import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
@@ -60,8 +61,8 @@ const BugPage = () => {
                                 Drunk Bob and Missing Auth
                             </h3>
                             <div className="flex flex-col md:flex-row gap-4">
-                                {/* Text */}
-                                <div className="md:w-3/5 w-full space-y-3">
+                                {/* Problem Statement Component*/}
+                                {/* <div className="md:w-3/5 w-full space-y-3">
                                     <p>
                                         Being drunk, Bob was completely wasted. With nothing else to
                                         do, he decided to test a very reputable website.
@@ -78,7 +79,22 @@ const BugPage = () => {
                                         <b>That is for you to figure out.</b>
                                     </p>
                                     <p className="text-xs font-bold">Tip: You have to log into admin@gmail.com </p>
-                                </div>
+                                </div> */}
+                                <ProblemStatement
+                                    heading = "Drunk Bob and Missing Auth"
+                                    info={
+                                        <>
+                                            Being drunk, Bob was completely wasted. With nothing else to do, he decided to test a very reputable website.
+                                            <br /><br />
+                                            After trying all his tricks and failing, on his last attempt he noticed that  <b>JWT was not being verified</b>.
+                                            <br /><br />
+                                            What will he do now? How will he get into the admin's account?
+                                            <br /><br />
+                                            <b>That is for you to figure out.</b>
+                                        </>
+                                    }
+                                    details="Tip: You have to log into admin@gmail.com"
+                                />
 
                                 {/* Image */}
                                 <div className="md:w-2/5 w-full flex items-center justify-center">
