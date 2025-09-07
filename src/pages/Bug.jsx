@@ -57,9 +57,6 @@ const BugPage = () => {
                     </h2>
                     <ul className="list-disc pl-6">
                         <li className="mb-8">
-                            <h3 className="text-lg font-bold mb-2">
-                                Drunk Bob and Missing Auth
-                            </h3>
                             <div className="flex flex-col md:flex-row gap-4">
                                 {/* Problem Statement Component*/}
                                 {/* <div className="md:w-3/5 w-full space-y-3">
