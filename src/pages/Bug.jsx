@@ -8,7 +8,6 @@ import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
-    const [render, setRender] = useState(0);
 
     useEffect(() => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
