@@ -1,9 +1,10 @@
 import StartButton from "./StartButton.jsx";
 import Stats from "./Stats.jsx";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import RegisterButton from "./RegisterButton.jsx";
 
-const ProblemStatement = ({ heading, info, details, imgIfAny, alt, notIfAny, isDisabled }) => {
+const ProblemStatement = ({heading, info, details, imgIfAny, alt, notIfAny, isDisabled, labId}) => {
     const [render, setRender] = useState(0);
     const navigate = useNavigate();
     return (
@@ -23,7 +24,9 @@ const ProblemStatement = ({ heading, info, details, imgIfAny, alt, notIfAny, isD
                     {/* Leaderboard button at top */}
                     <div className="mb-2">
                         <button
-                            onClick={() => {navigate("/leaderboard")}}
+                            onClick={() => {
+                                navigate("/leaderboard")
+                            }}
                             className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
                                 ${
                                 isDisabled
@@ -45,12 +48,16 @@ const ProblemStatement = ({ heading, info, details, imgIfAny, alt, notIfAny, isD
                     </div>
                 </div>
             </div>
+            {isDisabled == false ? <>
+                    <div className="mt-4 mb-4">
+                        <StartButton render={render} setRender={setRender} isDisabled={isDisabled} labNumber={labId}/>
+                    </div>
+                    <Stats render={render} setRender={setRender} isDisabled={isDisabled} labId={labId}/>
+                    {notIfAny}
+                </> :
+                <RegisterButton labId={labId}/>
+            }
 
-            <div className="mt-4 mb-4">
-                <StartButton render={render} setRender={setRender} isDisabled={isDisabled} />
-            </div>
-            <Stats render={render} setRender={setRender} isDisabled={isDisabled} />
-            {notIfAny}
         </>
     );
 };

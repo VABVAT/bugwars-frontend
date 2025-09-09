@@ -53,6 +53,28 @@ const BugPage = () => {
                     <ul className="list-disc pl-6">
                         <li className="mb-8">
                             <ProblemStatement
+                                heading="Bob and his obsession with images"
+                                info={
+                                    <>
+                                        Bob likes to get brag about his life on his personal website,
+                                        but he is a <b>vibe</b> coder, can you destroy his vibe?
+                                        <br/><br/>
+                                    </>
+                                }
+                                details="Person who is displayed on the leaderboard as Rank 1 will be awarded the prize money"
+                                notIfAny={<>  <p className="font-bold">Notes:</p>
+                                    <ol>
+                                        <li className="text-gray-700 text-xs">
+                                            This competition carries prize pool of <b>$10</b>
+                                        </li>
+                                    </ol>
+                                </>}
+                                isDisabled={true}
+                                labId={2}
+                            />
+                        </li>
+                        <li>
+                            <ProblemStatement
                                 heading="Drunk Bob and Missing Auth"
                                 info={
                                     <>
@@ -78,9 +100,8 @@ const BugPage = () => {
                                     </ol>
                                 </>}
                                 isDisabled={false}
+                                labId={1}
                             />
-                            <div>
-                            </div>
                         </li>
                     </ul>
                 </aside>

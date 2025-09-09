@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default function Stats({render, setRender, isDisabled}) {
+export default function Stats({render, setRender, isDisabled, labId}) {
     const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
     const [startNumber, setStartNumber] = useState(0);
     const [endNumber, setEndNumber] = useState(0);
@@ -9,7 +9,7 @@ export default function Stats({render, setRender, isDisabled}) {
     const [finishPosition, setFinishPosition] = useState(-1);
 
     async function successFetcher() {
-        const data = await fetch(`${baseUrl}/api/verify/stats/?lab=lab1`, {
+        const data = await fetch(`${baseUrl}/api/verify/stats/?lab=${labId}`, {
             method: "GET", credentials: "include"
         });
         return await data.json();

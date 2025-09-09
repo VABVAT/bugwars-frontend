@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const RegisterButton = ({isDisabled}) => {
+const RegisterButton = ({labId}) => {
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
 
     const handleRegister = async () => {
         try {
             const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-            const res = await fetch(`${baseUrl}/api/register`, {
+            const res = await fetch(`${baseUrl}/api/register?lab=${labId}`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -31,17 +31,13 @@ const RegisterButton = ({isDisabled}) => {
         <div className="font-serif">
             {/* Classic button */}
             <button
-                disabled={isDisabled}
+
                 onClick={handleRegister}
-                className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
-                                ${
-                    isDisabled
-                        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                        : "bg-gray-100 text-black hover:bg-black hover:text-white"
-                }`}
+                className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none bg-gray-100 text-black hover:bg-black hover:text-white`}
             >
                 Register
-            </button>
+            </button
+  >
 
             {/* Message box */}
             {message && (

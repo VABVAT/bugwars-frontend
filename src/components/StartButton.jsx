@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const StartButton = ({render, setRender, isDisabled}) => {
+const StartButton = ({render, setRender, isDisabled, labNumber}) => {
 
     const [value, setValue] = useState("");
     const [started, setStarted] = useState(false);
@@ -13,7 +13,7 @@ const StartButton = ({render, setRender, isDisabled}) => {
         setError("");
         setSuccess(false);
 
-        const data = await fetch(`${baseUrl}/api/verify/?lab=lab1`, {
+        const data = await fetch(`${baseUrl}/api/verify/?lab=${labNumber}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -37,17 +37,22 @@ const StartButton = ({render, setRender, isDisabled}) => {
 
     async function handleLabStart(){
             const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-            await fetch(`${baseUrl}/api/register`, {
+            await fetch(`${baseUrl}/api/register/start`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    lab: labNumber
+                }),
             });
             setStarted(true);
             setRender(prev => prev + 1);
-            window.open("https://flab.bugwars.in", "_blank");
+            if(labNumber == 1){
+                window.open("https://flab.bugwars.in", "_blank");
+            }
+
     }
 
     return (
