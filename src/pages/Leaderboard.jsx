@@ -1,6 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header.jsx";
-import {useSearchParams} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
+
+const MessageBox = ({ message, onClose }) => {
+    if (!message?.text) return null;
+    const isError = message.type === "error";
+    return (
+        <div
+            className={`max-w-5xl mx-auto my-4 p-3 rounded text-sm flex justify-between items-start
+        ${isError ? "bg-red-50 border border-red-200 text-red-800" : "bg-green-50 border border-green-200 text-green-800"}`}
+        >
+            <div>{message.text}</div>
+            <button
+                onClick={onClose}
+                className="ml-4 text-xs font-semibold px-2 py-1 border rounded bg-white"
+                aria-label="dismiss message"
+            >
+                ×
+            </button>
+        </div>
+    );
+};
 
 const Leaderboard = () => {
     const [leaderboard, setLeaderboard] = useState([]);
@@ -10,12 +30,14 @@ const Leaderboard = () => {
     const [nickname, setNickname] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [userData, setUserData] = useState(null);
+    const [message, setMessage] = useState({ type: "", text: "" });
+
     const [searchParams] = useSearchParams();
     const labNum = searchParams.get("lab") || 1; // default to 1 if missing
     const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
     useEffect(() => {
-        // fetch profile (same pattern as your BugPage)
+        // fetch profile
         const url = `${baseUrl}/api/profile/`;
         fetch(url, {
             method: "GET",
@@ -37,7 +59,7 @@ const Leaderboard = () => {
         // fetch leaderboard
         fetchLeaderboard();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [labNum]);
 
     const fetchLeaderboard = async () => {
         try {
@@ -54,11 +76,12 @@ const Leaderboard = () => {
             setHasUserName(Boolean(data.hasUserName));
 
             if (!data.hasUserName) {
-                setShowModal(true);
+                setShowModal(false);
             }
             setLeaderboard(Array.isArray(data.leaderboard) ? data.leaderboard : []);
         } catch (err) {
             console.error(err);
+            setMessage({ type: "error", text: "Unable to load leaderboard. Please try again later." });
         } finally {
             setLoading(false);
         }
@@ -66,11 +89,12 @@ const Leaderboard = () => {
 
     const updateNickname = async () => {
         if (nickname.trim() === "") {
-            alert("Nickname cannot be empty.");
+            setMessage({ type: "error", text: "Nickname cannot be empty." });
             return;
         }
 
         setIsSubmitting(true);
+        setMessage({ type: "", text: "" });
 
         try {
             const res = await fetch(`${baseUrl}/api/verify/set-nickname`, {
@@ -83,12 +107,15 @@ const Leaderboard = () => {
             const result = await res.json();
             if (result.success) {
                 setShowModal(false);
+                setMessage({ type: "success", text: "Nickname saved successfully!" });
+                // refresh leaderboard to show the nickname
+                fetchLeaderboard();
             } else {
-                alert(result.message || "Failed to update nickname.");
+                setMessage({ type: "error", text: result.message || "Failed to update nickname." });
             }
         } catch (err) {
             console.error(err);
-            alert("An error occurred while updating nickname.");
+            setMessage({ type: "error", text: "An error occurred while updating nickname." });
         } finally {
             setIsSubmitting(false);
         }
@@ -105,7 +132,10 @@ const Leaderboard = () => {
         <div className="font-serif bg-white text-[#222] leading-relaxed max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen">
             <Header userData={userData} setUserData={setUserData} />
 
-            <main className="mt-8">
+            {/* message box shown near top */}
+            <MessageBox message={message} onClose={() => setMessage({ type: "", text: "" })} />
+
+            <main className="mt-4">
                 <section className="bg-white border border-gray-300 rounded p-6">
                     <h1 className="text-xl font-bold mb-4 border-b border-gray-300 pb-2">Leaderboard</h1>
 
@@ -164,18 +194,36 @@ const Leaderboard = () => {
                             Please choose a nickname to display on the leaderboard.
                         </p>
 
+                        {/* show message (inline) inside modal too for immediate feedback */}
+                        {message?.text && (
+                            <div
+                                className={`mb-3 p-2 rounded text-sm ${message.type === "error"
+                                    ? "bg-red-50 border border-red-200 text-red-800"
+                                    : "bg-green-50 border border-green-200 text-green-800"}`}
+                            >
+                                {message.text}
+                            </div>
+                        )}
+
                         <input
                             type="text"
                             className="w-full p-2 border border-gray-300 rounded mb-4 text-sm"
                             placeholder="Enter nickname"
                             value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
+                            onChange={(e) => {
+                                setNickname(e.target.value);
+                                // remove message as user types
+                                if (message?.text) setMessage({ type: "", text: "" });
+                            }}
                         />
 
                         <div className="flex justify-end space-x-3">
                             <button
                                 className="px-3 py-1 text-sm border border-gray-300 rounded bg-gray-100"
-                                onClick={() => setShowModal(false)}
+                                onClick={() => {
+                                    setShowModal(false);
+                                    setMessage({ type: "", text: "" });
+                                }}
                                 disabled={isSubmitting}
                             >
                                 Cancel

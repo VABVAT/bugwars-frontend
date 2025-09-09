@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const RegisterButton = ({labId}) => {
+const RegisterButton = ({labId, render, setRender}) => {
     const [message, setMessage] = useState("");
     const [isError, setIsError] = useState(false);
 
@@ -25,6 +25,7 @@ const RegisterButton = ({labId}) => {
             setMessage("Something went wrong!");
             setIsError(true);
         }
+        setRender(prev => prev + 1);
     };
 
     return (

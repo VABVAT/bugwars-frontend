@@ -1,64 +1,73 @@
 import StartButton from "./StartButton.jsx";
 import Stats from "./Stats.jsx";
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import RegisterButton from "./RegisterButton.jsx";
 
-const ProblemStatement = ({heading, info, details, imgIfAny, alt, notIfAny, isDisabled, labId}) => {
-    const [render, setRender] = useState(0);
+const ProblemStatement = ({
+                              heading,
+                              info,
+                              details,
+                              imgIfAny,
+                              alt = "",
+                              notIfAny,
+                              isDisabled,
+                              labId,
+                          }) => {
     const navigate = useNavigate();
+
+    const [render, setRender] = useState(0);
     return (
-        <>
+        <div className="font-serif text-[#222]">
             <div className="flex flex-col md:flex-row gap-4">
-                {/* Left column */}
-                <div className="md:w-3/5 w-full space-y-3">
-                    <div className="flex">
-                        <h3 className="text-lg font-bold mb-2">{heading}</h3>
-                    </div>
-                    <div>{info}</div>
-                    {details && <p className="text-xs font-bold">{details}</p>}
+                {/* Left */}
+                <div className="md:w-3/5 w-full">
+                    <h3 className="text-lg font-semibold mb-2">{heading}</h3>
+                    <div className="text-sm text-gray-800">{info}</div>
+                    {details && <div className="text-xs font-semibold mt-2">{details}</div>}
                 </div>
 
-                {/* Right column */}
-                <div className="md:w-2/5 w-full flex flex-col">
-                    {/* Leaderboard button at top */}
-                    <div className="mb-2">
-                        <button
-                            onClick={() => {
-                                navigate(`/leaderboard?lab=${labId}`)
-                            }}
-                            className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
-                                ${
-                                isDisabled
-                                    ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-                                    : "bg-gray-100 text-black hover:bg-black hover:text-white"
-                            }`}
-                        >
-                            Leaderboard
-                        </button>
-                    </div>
+                {/* Right */}
+                <div className="md:w-2/5 w-full flex flex-col items-stretch">
+                    <button
+                        onClick={() => navigate(`/leaderboard?lab=${labId}`)}
+                        className={`text-sm font-medium px-3 py-1 mb-3 border rounded focus:outline-none transition ${
+                            isDisabled
+                                ? "bg-gray-100 text-gray-500 border-gray-200 cursor-not-allowed"
+                                : "bg-white text-black border-gray-400 hover:bg-black hover:text-white"
+                        }`}
+                        aria-disabled={isDisabled}
+                    >
+                        Leaderboard
+                    </button>
 
-                    {/* Image centered */}
-                    <div className="flex-1 flex items-center justify-center">
-                        <img
-                            src={imgIfAny}
-                            alt={alt}
-                            className="w-[90%] max-h-52 object-contain"
-                        />
-                    </div>
+                    {imgIfAny ? (
+                        <div className="flex-1 flex items-center justify-center">
+                            <img src={imgIfAny} alt={alt} className="max-h-44 w-auto object-contain" />
+                        </div>
+                    ) : (
+                        <div className="h-24" />
+                    )}
                 </div>
             </div>
-            {isDisabled == false ? <>
-                    <div className="mt-4 mb-4">
-                        <StartButton render={render} setRender={setRender} isDisabled={isDisabled} labNumber={labId}/>
-                    </div>
-                    <Stats render={render} setRender={setRender} isDisabled={isDisabled} labId={labId}/>
-                    {notIfAny}
-                </> :
-                <RegisterButton labId={labId}/>
-            }
 
-        </>
+            <div className="mt-4 flex flex-col md:flex-row md:items-center gap-3">
+                {isDisabled ? (
+                    <RegisterButton labId={labId} render={render} setRender={setRender} />
+                ) : (
+                    <>
+                        <div>
+                            <StartButton isDisabled={isDisabled} labNumber={labId} render={render} setRender={setRender} />
+                        </div>
+                    </>
+                )}
+                <div className="flex-1">
+                    <Stats isDisabled={isDisabled} labId={labId} render={render} setRender={setRender} />
+                </div>
+            </div>
+
+            {notIfAny && <div className="mt-3 text-sm text-gray-700">{notIfAny}</div>}
+        </div>
     );
 };
 

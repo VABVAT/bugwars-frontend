@@ -5,6 +5,46 @@ import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
+    const problems = [
+        {
+            heading: "Bob and his obsession with images",
+            info: (
+                <>
+                    Bob likes to brag about his life on his personal website, but he is a <b>vibe</b> coder.
+                </>
+            ),
+            details: "Person who is displayed on the leaderboard as Rank 1 will be awarded the prize money",
+            notes: (
+                <>
+                    <p className="font-semibold mt-2">Notes</p>
+                    <p className="text-xs text-gray-700">This competition carries prize pool of <b>$10</b></p>
+                </>
+            ),
+            isDisabled: true,
+            labId: 2,
+        },
+        {
+            heading: "Drunk Bob and Missing Auth",
+            info: (
+                <>
+                    Being drunk, Bob was completely wasted. He found a site where <b>JWT was not being verified</b>.
+                    What will he do now? How will he get into the admin's account?
+                </>
+            ),
+            details: "Tip: You have to log into admin@gmail.com",
+            img: img,
+            notes: (
+                <>
+                    <p className="font-semibold mt-2">Notes</p>
+                    <p className="text-xs text-gray-700">
+                        This follows the same pattern as my previous video — not monetized, no cash prize.
+                    </p>
+                </>
+            ),
+            isDisabled: false,
+            labId: 1,
+        },
+    ];
 
     useEffect(() => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -50,59 +90,20 @@ const BugPage = () => {
                     <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
                         Upcoming Events
                     </h2>
-                    <ul className="list-disc pl-6">
-                        <li className="mb-8">
-                            <ProblemStatement
-                                heading="Bob and his obsession with images"
-                                info={
-                                    <>
-                                        Bob likes to get brag about his life on his personal website,
-                                        but he is a <b>vibe</b> coder, can you destroy his vibe?
-                                        <br/><br/>
-                                    </>
-                                }
-                                details="Person who is displayed on the leaderboard as Rank 1 will be awarded the prize money"
-                                notIfAny={<>  <p className="font-bold">Notes:</p>
-                                    <ol>
-                                        <li className="text-gray-700 text-xs">
-                                            This competition carries prize pool of <b>$10</b>
-                                        </li>
-                                    </ol>
-                                </>}
-                                isDisabled={true}
-                                labId={2}
-                            />
-                        </li>
-                        <li>
-                            <ProblemStatement
-                                heading="Drunk Bob and Missing Auth"
-                                info={
-                                    <>
-                                        Being drunk, Bob was completely wasted. With nothing else to do, he decided to
-                                        test a very reputable website.
-                                        <br/><br/>
-                                        After trying all his tricks and failing, on his last attempt he noticed that <b>JWT
-                                        was not being verified</b>.
-                                        <br/><br/>
-                                        What will he do now? How will he get into the admin's account?
-                                        <br/><br/>
-                                        <b>That is for you to figure out.</b>
-                                    </>
-                                }
-                                details="Tip: You have to log into admin@gmail.com"
-                                imgIfAny={img}
-                                notIfAny={<>  <p className="font-bold">Notes:</p>
-                                    <ol>
-                                        <li className="text-gray-700 text-xs">
-                                            This competition follows the same pattern as my previous video <br/>
-                                            Thus it is not monetized and carries no cash prize
-                                        </li>
-                                    </ol>
-                                </>}
-                                isDisabled={false}
-                                labId={1}
-                            />
-                        </li>
+                    <ul className="space-y-6">
+                        {problems.map((p) => (
+                            <li key={p.heading} className="bg-white border border-gray-200 p-4 rounded">
+                                <ProblemStatement
+                                    heading={p.heading}
+                                    info={p.info}
+                                    details={p.details}
+                                    imgIfAny={p.img}
+                                    notIfAny={p.notes}
+                                    isDisabled={p.isDisabled}
+                                    labId={p.labId}
+                                />
+                            </li>
+                        ))}
                     </ul>
                 </aside>
             </div>
