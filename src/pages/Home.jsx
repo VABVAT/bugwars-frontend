@@ -1,6 +1,6 @@
 import SigninWithGoogle from "../components/SIgninWithGoogle.jsx";
 
-const Home = ({ isLoggedIn }) => {
+const Home = () => {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center font-serif px-4">
             {/* Title */}
@@ -16,7 +16,7 @@ const Home = ({ isLoggedIn }) => {
             </p>
 
             {/* Sign in button (only if logged out) */}
-            {!isLoggedIn && (
+            { (
                 <div>
                     <SigninWithGoogle />
                 </div>
