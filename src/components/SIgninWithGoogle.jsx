@@ -1,7 +1,9 @@
 export default function SigninWithGoogle() {
     const handleLogin = () => {
         // Redirect to your backend route that starts Google OAuth
+        console.log("hi");
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
+        console.log(baseUrl);
         window.location.href = `${baseUrl}/api/auth/google`;
     };
 
