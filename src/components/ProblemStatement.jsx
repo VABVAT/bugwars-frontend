@@ -25,7 +25,7 @@ const ProblemStatement = ({heading, info, details, imgIfAny, alt, notIfAny, isDi
                     <div className="mb-2">
                         <button
                             onClick={() => {
-                                navigate("/leaderboard")
+                                navigate(`/leaderboard?lab=${labId}`)
                             }}
                             className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
                                 ${
