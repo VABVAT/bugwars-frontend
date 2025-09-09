@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/Header.jsx";
 import img from "../../public/img.png";
 import RegisterButton from "../components/RegisterButton.jsx";
@@ -8,7 +8,7 @@ import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
-    const [render, setRender ] = useState(0);
+    const [render, setRender] = useState(0);
 
     useEffect(() => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -37,10 +37,9 @@ const BugPage = () => {
 
     return (
         <div className="font-serif bg-white text-[#222] leading-relaxed max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Header userData={userData} setUserData={setUserData} />
+            <Header userData={userData} setUserData={setUserData}/>
 
             <div className="flex flex-col lg:flex-row gap-8">
-                {/* Sidebar */}
                 <aside className="lg:w-1/3 w-full">
                     <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
                         Previous Results
@@ -57,47 +56,34 @@ const BugPage = () => {
                     </h2>
                     <ul className="list-disc pl-6">
                         <li className="mb-8">
-                            <div className="flex flex-col md:flex-row gap-4">
-                                <ProblemStatement
-                                    heading = "Drunk Bob and Missing Auth"
-                                    info={
-                                        <>
-                                            Being drunk, Bob was completely wasted. With nothing else to do, he decided to test a very reputable website.
-                                            <br /><br />
-                                            After trying all his tricks and failing, on his last attempt he noticed that  <b>JWT was not being verified</b>.
-                                            <br /><br />
-                                            What will he do now? How will he get into the admin's account?
-                                            <br /><br />
-                                            <b>That is for you to figure out.</b>
-                                        </>
-                                    }
-                                    details="Tip: You have to log into admin@gmail.com"
-                                />
-
-                                {/* Image */}
-                                <div className="md:w-2/5 w-full flex items-center justify-center">
-                                    <img
-                                        src={img}
-                                        alt="Drunk Bob illustration"
-                                        className="w-[90%] max-h-52 object-contain"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Register Button */}
-                            <div className="mt-4 mb-4">
-                                <StartButton render={render} setRender={setRender} />
-                            </div>
-                            <Stats render={render} setRender={setRender} />
-                            {/* Note */}
+                            <ProblemStatement
+                                heading="Drunk Bob and Missing Auth"
+                                info={
+                                    <>
+                                        Being drunk, Bob was completely wasted. With nothing else to do, he decided to
+                                        test a very reputable website.
+                                        <br/><br/>
+                                        After trying all his tricks and failing, on his last attempt he noticed that <b>JWT
+                                        was not being verified</b>.
+                                        <br/><br/>
+                                        What will he do now? How will he get into the admin's account?
+                                        <br/><br/>
+                                        <b>That is for you to figure out.</b>
+                                    </>
+                                }
+                                details="Tip: You have to log into admin@gmail.com"
+                                imgIfAny={img}
+                                notIfAny={<>  <p className="font-bold">Notes:</p>
+                                    <ol>
+                                        <li className="text-gray-700 text-xs">
+                                            This competition follows the same pattern as my previous video <br/>
+                                            Thus it is not monetized and carries no cash prize
+                                        </li>
+                                    </ol>
+                                </>}
+                            />
                             <div>
-                                <p className="font-bold">Notes:</p>
-                                <ol>
-                                    <li className="text-gray-700 text-xs">
-                                        This competition follows the same pattern as my previous video <br/>
-                                        Thus it is not monetized and carries no cash prize
-                                    </li>
-                                </ol>
+
                             </div>
                         </li>
                     </ul>
