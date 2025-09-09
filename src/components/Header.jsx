@@ -10,13 +10,16 @@ function Header({ userData, setUserData }) {
     const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
 
     useEffect(() => {
-        // open modal only when user is present and nickName is missing
+        // auto-open modal if user has no nickname
         if (userData && !userData.nickName) {
             setShowModal(true);
             setNickname("");
             setMessage({ type: "", text: "" });
-        } else {
+        }
+        if (!userData) {
             setShowModal(false);
+            setNickname("");
+            setMessage({ type: "", text: "" });
         }
     }, [userData]);
 
@@ -58,10 +61,9 @@ function Header({ userData, setUserData }) {
             const result = await res.json();
 
             if (result.success) {
-                // update local userData with new nickname (keep other fields intact)
                 setUserData((prev) => (prev ? { ...prev, nickName: name } : prev));
                 setMessage({ type: "success", text: "Nickname saved successfully." });
-                setTimeout(() => setShowModal(false), 700); // small delay for UX
+                setTimeout(() => setShowModal(false), 700);
             } else {
                 setMessage({ type: "error", text: result.message || "Failed to set nickname." });
             }
@@ -85,9 +87,19 @@ function Header({ userData, setUserData }) {
                         <div className="text-right">
                             <p className="font-bold">{userData.email}</p>
 
-                            {/* Show nickname only if it exists */}
-                            {userData.nickName && (
+                            {/* If nickname exists, show it; else show nothing except Add button */}
+                            {userData.nickName ? (
                                 <p className="text-sm text-gray-700">Nickname: {userData.nickName}</p>
+                            ) : (
+                                <button
+                                    onClick={() => {
+                                        setShowModal(true);
+                                        setMessage({ type: "", text: "" });
+                                    }}
+                                    className="text-xs font-medium px-2 py-0.5 border border-gray-600 rounded bg-white hover:bg-gray-100 mt-1"
+                                >
+                                    Add nickname
+                                </button>
                             )}
 
                             <p>Winnings: ${userData.winnings}</p>
@@ -116,7 +128,7 @@ function Header({ userData, setUserData }) {
                 )}
             </header>
 
-            {/* Modal for asking nickname (classic boring style) */}
+            {/* Modal for asking nickname */}
             {showModal && (
                 <div className="fixed inset-0 bg-white/90 flex items-center justify-center z-50">
                     <div className="w-full max-w-md border border-gray-300 bg-white p-6 rounded shadow-sm">
@@ -125,7 +137,6 @@ function Header({ userData, setUserData }) {
                             Choose a nickname to appear on the leaderboard.
                         </p>
 
-                        {/* inline message */}
                         {message?.text && (
                             <div
                                 className={`mb-3 p-2 rounded text-sm ${
