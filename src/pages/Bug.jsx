@@ -58,25 +58,6 @@ const BugPage = () => {
                     <ul className="list-disc pl-6">
                         <li className="mb-8">
                             <div className="flex flex-col md:flex-row gap-4">
-                                {/* Problem Statement Component*/}
-                                {/* <div className="md:w-3/5 w-full space-y-3">
-                                    <p>
-                                        Being drunk, Bob was completely wasted. With nothing else to
-                                        do, he decided to test a very reputable website.
-                                    </p>
-                                    <p>
-                                        After trying all his tricks and failing, on his last attempt
-                                        he noticed that a <b>JWT was not being verified</b>.
-                                    </p>
-                                    <p>
-                                        What will he do now? How will he get into the admin’s
-                                        account?
-                                    </p>
-                                    <p>
-                                        <b>That is for you to figure out.</b>
-                                    </p>
-                                    <p className="text-xs font-bold">Tip: You have to log into admin@gmail.com </p>
-                                </div> */}
                                 <ProblemStatement
                                     heading = "Drunk Bob and Missing Auth"
                                     info={
