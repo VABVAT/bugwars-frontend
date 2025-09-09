@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Header from "../components/Header.jsx";
 import img from "../../public/img.png";
-import RegisterButton from "../components/RegisterButton.jsx";
-import StartButton from "../components/StartButton.jsx";
-import Stats from "../components/Stats.jsx";
 import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
@@ -80,9 +77,9 @@ const BugPage = () => {
                                         </li>
                                     </ol>
                                 </>}
+                                isDisabled={true}
                             />
                             <div>
-
                             </div>
                         </li>
                     </ul>

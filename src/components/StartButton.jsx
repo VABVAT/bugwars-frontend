@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const StartButton = ({render, setRender}) => {
+const StartButton = ({render, setRender, isDisabled}) => {
 
     const [value, setValue] = useState("");
     const [started, setStarted] = useState(false);
@@ -54,8 +54,14 @@ const StartButton = ({render, setRender}) => {
         <div className="font-serif">
             {/* Classic button */}
             <button
+                disabled={isDisabled}
                 onClick={handleLabStart}
-                className="px-4 py-1 mt-3 border border-black bg-gray-100 text-black text-sm font-semibold hover:bg-black hover:text-white focus:outline-none"
+                className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
+                                ${
+                    isDisabled
+                        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                        : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                }`}
             >
                 Start lab
             </button>
@@ -70,8 +76,14 @@ const StartButton = ({render, setRender}) => {
                         className="px-3 py-1 border border-black bg-gray-50 text-sm text-black focus:outline-none focus:ring-1 focus:ring-black placeholder-gray-500"
                     />
                     <button
+                        disabled={isDisabled}
                         onClick={handleSubmission}
-                        className="px-4 py-1 border border-black bg-gray-100 text-black text-sm font-semibold hover:bg-black hover:text-white focus:outline-none"
+                        className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
+                                ${
+                            isDisabled
+                                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                        }`}
                     >
                         Submit
                     </button>

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export default function Stats({render, setRender}) {
+export default function Stats({render, setRender, isDisabled}) {
     const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
     const [startNumber, setStartNumber] = useState(0);
     const [endNumber, setEndNumber] = useState(0);
@@ -71,15 +71,17 @@ export default function Stats({render, setRender}) {
         }
     }
 
-    return (<div>
-            <div className="mt-4">
-                <span className="text-green-500 font-bold">People started:</span> {startNumber}
-            </div>
-            <div className="mb-4">
-                <span className="text-red-700 font-bold">People finished:</span> {endNumber}
-            </div>
-            <div className="mb-4">
-                {!loading ? (!finished ? (<span>
+    return (
+        <>{!isDisabled ?
+            <div>
+                <div className="mt-4">
+                    <span className="text-green-500 font-bold">People started:</span> {startNumber}
+                </div>
+                <div className="mb-4">
+                    <span className="text-red-700 font-bold">People finished:</span> {endNumber}
+                </div>
+                <div className="mb-4">
+                    {!loading ? (!finished ? (<span>
       You will be <span className="font-extrabold">
         {endNumber + 1}<sup>{ordinalSuffix(endNumber + 1)}</sup>
       </span> finisher
@@ -89,6 +91,7 @@ export default function Stats({render, setRender}) {
       </span>
     </span>)) : null}
 
-            </div>
-        </div>)
+                </div>
+            </div> : <p> This event has concluded please see leaderboard for results</p>}
+        </>)
 }

@@ -27,6 +27,7 @@ function Header({ userData, setUserData }) {
                 <section className="flex items-center gap-4 mt-4 sm:mt-0">
                     <div className="text-right">
                         <p className="font-bold">{userData.email}</p>
+                        {/*{userData.nick}*/}
                         <p>Winnings: ${userData.winnings}</p>
                     </div>
 
