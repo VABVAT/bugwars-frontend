@@ -4,6 +4,7 @@ import About from './pages/About.jsx'
 import BugPage from './pages/Bug.jsx'
 import { useEffect, useState } from 'react'
 import Header from './components/Header.jsx'
+import Leaderboard from "./pages/Leaderboard.jsx";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -44,6 +45,7 @@ function App() {
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/about" element={<About />} />
         <Route path="/bug" element={<BugPage />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </>
   )

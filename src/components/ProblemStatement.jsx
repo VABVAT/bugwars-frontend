@@ -1,10 +1,11 @@
 import StartButton from "./StartButton.jsx";
 import Stats from "./Stats.jsx";
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 
 const ProblemStatement = ({ heading, info, details, imgIfAny, alt, notIfAny, isDisabled }) => {
     const [render, setRender] = useState(0);
-
+    const navigate = useNavigate();
     return (
         <>
             <div className="flex flex-col md:flex-row gap-4">
@@ -22,7 +23,7 @@ const ProblemStatement = ({ heading, info, details, imgIfAny, alt, notIfAny, isD
                     {/* Leaderboard button at top */}
                     <div className="mb-2">
                         <button
-                            disabled={isDisabled}
+                            onClick={() => {navigate("/leaderboard")}}
                             className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
                                 ${
                                 isDisabled

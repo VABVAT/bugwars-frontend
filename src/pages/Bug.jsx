@@ -77,7 +77,7 @@ const BugPage = () => {
                                         </li>
                                     </ol>
                                 </>}
-                                isDisabled={true}
+                                isDisabled={false}
                             />
                             <div>
                             </div>
