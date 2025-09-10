@@ -1,13 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../components/Header.jsx";
 import img from "../../public/img.png";
-import RegisterButton from "../components/RegisterButton.jsx";
-import StartButton from "../components/StartButton.jsx";
-import Stats from "../components/Stats.jsx";
+import ProblemStatement from "../components/ProblemStatement.jsx";
 
 const BugPage = () => {
     const [userData, setUserData] = useState(null);
-    const [render, setRender ] = useState(0);
+    const problems = [
+        {
+            heading: "Bob and his obsession with images",
+            info: (
+                <>
+                    Bob likes to brag about his life on his personal website, but he is a <b>vibe</b> coder.
+                    Can you destroy his <b> vibe? </b>
+                </>
+            ),
+            details:"Winning prize: $10",
+            notes: (
+                <>
+                    <p className="font-semibold mt-2">Notes:</p>
+                    <ol className="list-decimal pl-5 space-y-1 text-sm">
+                        <li className="text-xs ">By registering you agree to receive reminder emails for this lab</li>
+                        <li className="text-xs">
+                            This competition carries a prize pool of <b>$10</b>.
+                        </li>
+                        <li className="text-xs">
+                            Person who is displayed on the leaderboard as <b>Rank 1</b> will be awarded the prize money
+                        </li>
+                    </ol>
+                </>
+
+            ),
+            startsAt:"2025-09-14T18:00:00+05:30",
+            isDisabled: true,
+            labId: 2,
+        },
+        {
+            heading: "Drunk Bob and Missing Auth",
+            info: (
+                <>
+                    Being drunk, Bob was completely wasted. He found a site where <b>JWT was not being verified</b>.
+                    What will he do now? How will he get into the admin's account?
+                </>
+            ),
+            details: "Tip: You have to log into admin@gmail.com",
+            img: img,
+            notes: (
+                <>
+                    <p className="font-semibold mt-2">Notes</p>
+                    <p className="text-xs text-gray-700">
+                        This follows the same pattern as my previous video — not monetized, no cash prize.
+                    </p>
+                </>
+            ),
+            isDisabled: false,
+            labId: 1,
+        },
+    ];
 
     useEffect(() => {
         const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
@@ -36,10 +84,9 @@ const BugPage = () => {
 
     return (
         <div className="font-serif bg-white text-[#222] leading-relaxed max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Header userData={userData} setUserData={setUserData} />
+            <Header userData={userData} setUserData={setUserData}/>
 
             <div className="flex flex-col lg:flex-row gap-8">
-                {/* Sidebar */}
                 <aside className="lg:w-1/3 w-full">
                     <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
                         Previous Results
@@ -54,58 +101,21 @@ const BugPage = () => {
                     <h2 className="text-xl font-bold p-2 mb-4 border-b border-gray-400">
                         Upcoming Events
                     </h2>
-                    <ul className="list-disc pl-6">
-                        <li className="mb-8">
-                            <h3 className="text-lg font-bold mb-2">
-                                Drunk Bob and Missing Auth
-                            </h3>
-                            <div className="flex flex-col md:flex-row gap-4">
-                                {/* Text */}
-                                <div className="md:w-3/5 w-full space-y-3">
-                                    <p>
-                                        Being drunk, Bob was completely wasted. With nothing else to
-                                        do, he decided to test a very reputable website.
-                                    </p>
-                                    <p>
-                                        After trying all his tricks and failing, on his last attempt
-                                        he noticed that a <b>JWT was not being verified</b>.
-                                    </p>
-                                    <p>
-                                        What will he do now? How will he get into the admin’s
-                                        account?
-                                    </p>
-                                    <p>
-                                        <b>That is for you to figure out.</b>
-                                    </p>
-                                    <p className="text-xs font-bold">Tip: You have to log into admin@gmail.com </p>
-                                </div>
-
-                                {/* Image */}
-                                <div className="md:w-2/5 w-full flex items-center justify-center">
-                                    <img
-                                        src={img}
-                                        alt="Drunk Bob illustration"
-                                        className="w-[90%] max-h-52 object-contain"
-                                    />
-                                </div>
-                            </div>
-
-                            {/* Register Button */}
-                            <div className="mt-4 mb-4">
-                                <StartButton render={render} setRender={setRender} />
-                            </div>
-                            <Stats render={render} setRender={setRender} />
-                            {/* Note */}
-                            <div>
-                                <p className="font-bold">Notes:</p>
-                                <ol>
-                                    <li className="text-gray-700 text-xs">
-                                        This competition follows the same pattern as my previous video <br/>
-                                        Thus it is not monetized and carries no cash prize
-                                    </li>
-                                </ol>
-                            </div>
-                        </li>
+                    <ul className="space-y-6">
+                        {problems.map((p) => (
+                            <li key={p.heading} className="bg-white border border-gray-200 p-4 rounded">
+                                <ProblemStatement
+                                    heading={p.heading}
+                                    info={p.info}
+                                    details={p.details}
+                                    imgIfAny={p.img}
+                                    notIfAny={p.notes}
+                                    isDisabled={p.isDisabled}
+                                    labId={p.labId}
+                                    startsAt={p.startsAt}
+                                />
+                            </li>
+                        ))}
                     </ul>
                 </aside>
             </div>

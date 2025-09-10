@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../index.css";
 
-const StartButton = ({render, setRender}) => {
+const StartButton = ({render, setRender, isDisabled, labNumber}) => {
 
     const [value, setValue] = useState("");
     const [started, setStarted] = useState(false);
@@ -13,7 +13,7 @@ const StartButton = ({render, setRender}) => {
         setError("");
         setSuccess(false);
 
-        const data = await fetch(`${baseUrl}/api/verify/?lab=lab1`, {
+        const data = await fetch(`${baseUrl}/api/verify/?lab=${labNumber}`, {
             method: "POST",
             credentials: "include",
             headers: {
@@ -37,25 +37,36 @@ const StartButton = ({render, setRender}) => {
 
     async function handleLabStart(){
             const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL;
-            await fetch(`${baseUrl}/api/register`, {
+            await fetch(`${baseUrl}/api/register/start`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({}),
+                body: JSON.stringify({
+                    lab: labNumber
+                }),
             });
             setStarted(true);
             setRender(prev => prev + 1);
-            window.open("https://flab.bugwars.in", "_blank");
+            if(labNumber == 1){
+                window.open("https://flab.bugwars.in", "_blank");
+            }
+
     }
 
     return (
         <div className="font-serif">
             {/* Classic button */}
             <button
+                disabled={isDisabled}
                 onClick={handleLabStart}
-                className="px-4 py-1 mt-3 border border-black bg-gray-100 text-black text-sm font-semibold hover:bg-black hover:text-white focus:outline-none"
+                className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
+                                ${
+                    isDisabled
+                        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                        : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                }`}
             >
                 Start lab
             </button>
@@ -70,8 +81,14 @@ const StartButton = ({render, setRender}) => {
                         className="px-3 py-1 border border-black bg-gray-50 text-sm text-black focus:outline-none focus:ring-1 focus:ring-black placeholder-gray-500"
                     />
                     <button
+                        disabled={isDisabled}
                         onClick={handleSubmission}
-                        className="px-4 py-1 border border-black bg-gray-100 text-black text-sm font-semibold hover:bg-black hover:text-white focus:outline-none"
+                        className={`px-4 py-1 mt-3 border border-black text-sm font-semibold focus:outline-none
+                                ${
+                            isDisabled
+                                ? "bg-gray-300 text-gray-600 cursor-not-allowed"
+                                : "bg-gray-100 text-black hover:bg-black hover:text-white"
+                        }`}
                     >
                         Submit
                     </button>
