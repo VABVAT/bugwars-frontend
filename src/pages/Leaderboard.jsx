@@ -58,8 +58,32 @@ const Leaderboard = () => {
 
         // fetch leaderboard
         fetchLeaderboard();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [labNum]);
+
+    useEffect(() => {
+        // fetch profile
+        const url = `${baseUrl}/api/profile/`;
+        fetch(url, {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((r) => {
+                if (!r.ok) {
+                    if (r.status === 401) window.location.href = "/";
+                    throw new Error(`HTTP error! Status: ${r.status}`);
+                }
+                return r.json();
+            })
+            .then((d) => setUserData(d))
+            .catch((err) => {
+                console.error("Error fetching user data:", err);
+                window.location.href = "/";
+            });
+
+        // fetch leaderboard
+        fetchLeaderboard();
+    }, []);
+
 
     const fetchLeaderboard = async () => {
         try {

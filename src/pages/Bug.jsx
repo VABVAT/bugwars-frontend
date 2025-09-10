@@ -11,15 +11,26 @@ const BugPage = () => {
             info: (
                 <>
                     Bob likes to brag about his life on his personal website, but he is a <b>vibe</b> coder.
+                    Can you destroy his <b> vibe? </b>
                 </>
             ),
-            details: "Person who is displayed on the leaderboard as Rank 1 will be awarded the prize money",
+            details:"Winning prize: $10",
             notes: (
                 <>
-                    <p className="font-semibold mt-2">Notes</p>
-                    <p className="text-xs text-gray-700">This competition carries prize pool of <b>$10</b></p>
+                    <p className="font-semibold mt-2">Notes:</p>
+                    <ol className="list-decimal pl-5 space-y-1 text-sm">
+                        <li className="text-xs ">By registering you agree to receive reminder emails for this lab</li>
+                        <li className="text-xs">
+                            This competition carries a prize pool of <b>$10</b>.
+                        </li>
+                        <li className="text-xs">
+                            Person who is displayed on the leaderboard as <b>Rank 1</b> will be awarded the prize money
+                        </li>
+                    </ol>
                 </>
+
             ),
+            startsAt:"2025-09-14T18:00:00+05:30",
             isDisabled: true,
             labId: 2,
         },
@@ -101,6 +112,7 @@ const BugPage = () => {
                                     notIfAny={p.notes}
                                     isDisabled={p.isDisabled}
                                     labId={p.labId}
+                                    startsAt={p.startsAt}
                                 />
                             </li>
                         ))}

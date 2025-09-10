@@ -1,8 +1,10 @@
 import StartButton from "./StartButton.jsx";
 import Stats from "./Stats.jsx";
-import React, {useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import RegisterButton from "./RegisterButton.jsx";
+import Timer from "./Timer.jsx";
+
 
 const ProblemStatement = ({
                               heading,
@@ -13,10 +15,12 @@ const ProblemStatement = ({
                               notIfAny,
                               isDisabled,
                               labId,
+                              startsAt = null, // new prop: accepts Date | number | ISO string
                           }) => {
     const navigate = useNavigate();
 
     const [render, setRender] = useState(0);
+
     return (
         <div className="font-serif text-[#222]">
             <div className="flex flex-col md:flex-row gap-4">
@@ -25,6 +29,9 @@ const ProblemStatement = ({
                     <h3 className="text-lg font-semibold mb-2">{heading}</h3>
                     <div className="text-sm text-gray-800">{info}</div>
                     {details && <div className="text-xs font-semibold mt-2">{details}</div>}
+
+                    {/* Timer (classic) */}
+
                 </div>
 
                 {/* Right */}
@@ -51,21 +58,28 @@ const ProblemStatement = ({
                 </div>
             </div>
 
-            <div className="mt-4 flex flex-col md:flex-row md:items-center gap-3">
+            <div className="mt-4 mb-2 md:flex-row md:items-center gap-3">
                 {isDisabled ? (
                     <RegisterButton labId={labId} render={render} setRender={setRender} />
+
                 ) : (
                     <>
                         <div>
-                            <StartButton isDisabled={isDisabled} labNumber={labId} render={render} setRender={setRender} />
+                            <StartButton
+                                isDisabled={isDisabled}
+                                labNumber={labId}
+                                render={render}
+                                setRender={setRender}
+                            />
                         </div>
                     </>
                 )}
                 <div className="flex-1">
                     <Stats isDisabled={isDisabled} labId={labId} render={render} setRender={setRender} />
+
                 </div>
             </div>
-
+            <Timer startsAt={startsAt} />
             {notIfAny && <div className="mt-3 text-sm text-gray-700">{notIfAny}</div>}
         </div>
     );
