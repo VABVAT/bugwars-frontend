@@ -19,7 +19,7 @@ const BugPage = () => {
                 <>
                     <p className="font-semibold mt-2">Notes:</p>
                     <ol className="list-decimal pl-5 space-y-1 text-sm">
-                        <li className="text-xs ">By registering you agree to receive reminder emails for this lab</li>
+                        {/*<li className="text-xs ">By registering you agree to receive reminder emails for this lab</li>*/}
                         <li className="text-xs">
                             This competition carries a prize pool of <b>$10</b>.
                         </li>
@@ -31,8 +31,10 @@ const BugPage = () => {
 
             ),
             startsAt:"2025-09-14T18:00:00+05:30",
-            isDisabled: true,
+            isDisabled: !true,
+            statsDisabled: true,
             labId: 2,
+            leaderboard: true
         },
         {
             heading: "Drunk Bob and Missing Auth",
@@ -53,6 +55,8 @@ const BugPage = () => {
                 </>
             ),
             isDisabled: false,
+            leaderboard: false,
+            statsDisabled: false,
             labId: 1,
         },
     ];
@@ -113,6 +117,8 @@ const BugPage = () => {
                                     isDisabled={p.isDisabled}
                                     labId={p.labId}
                                     startsAt={p.startsAt}
+                                    leaderboard={p.leaderboard}
+                                    statsDisabled={p.statsDisabled}
                                 />
                             </li>
                         ))}

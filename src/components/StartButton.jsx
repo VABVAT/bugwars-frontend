@@ -51,6 +51,8 @@ const StartButton = ({render, setRender, isDisabled, labNumber}) => {
             setRender(prev => prev + 1);
             if(labNumber == 1){
                 window.open("https://flab.bugwars.in", "_blank");
+            }else if (labNumber == 2){
+                window.open("https://slab.bugwars.in", "_blank");
             }
 
     }
