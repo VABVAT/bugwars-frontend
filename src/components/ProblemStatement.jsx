@@ -86,8 +86,9 @@ const ProblemStatement = ({
                     </>
                 )}
                 <div className="flex-1">
+                    {statsDisabled == true ? null :
                     <Stats isDisabled={statsDisabled} labId={labId} render={render} setRender={setRender} />
-
+                    }
                 </div>
             </div>
             <Timer startsAt={startsAt} />
