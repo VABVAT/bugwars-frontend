@@ -15,7 +15,9 @@ const ProblemStatement = ({
                               notIfAny,
                               isDisabled,
                               labId,
-                              startsAt = null, // new prop: accepts Date | number | ISO string
+                              startsAt = null,
+                                statsDisabled,
+                              leaderboard// new prop: accepts Date | number | ISO string,
                           }) => {
     const navigate = useNavigate();
 
@@ -36,17 +38,26 @@ const ProblemStatement = ({
 
                 {/* Right */}
                 <div className="md:w-2/5 w-full flex flex-col items-stretch">
-                    <button
-                        onClick={() => navigate(`/leaderboard?lab=${labId}`)}
-                        className={`text-sm font-medium px-3 py-1 mb-3 border rounded focus:outline-none transition ${
-                            isDisabled
-                                ? "bg-gray-100 text-gray-500 border-gray-200 cursor-not-allowed"
-                                : "bg-white text-black border-gray-400 hover:bg-black hover:text-white"
-                        }`}
-                        aria-disabled={isDisabled}
-                    >
-                        Leaderboard
-                    </button>
+                    <div className="relative group inline-block">
+                        <button
+                            disabled={leaderboard}
+                            onClick={() => navigate(`/leaderboard?lab=${labId}`)}
+                            className={`text-sm font-medium px-3 py-1 mb-3 border rounded focus:outline-none transition ${
+                                leaderboard
+                                    ? "bg-gray-100 text-gray-500 border-gray-200 cursor-not-allowed"
+                                    : "bg-white text-black border-gray-400 hover:bg-black hover:text-white"
+                            }`}
+                            aria-disabled={leaderboard}
+                        >
+                            Leaderboard
+                        </button>
+
+                        {leaderboard && (
+                            <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block whitespace-nowrap bg-black text-white text-xs rounded px-2 py-1 shadow">
+      Leaderboard will be enabled by 12 AM
+    </span>
+                        )}
+                    </div>
 
                     {imgIfAny ? (
                         <div className="flex-1 flex items-center justify-center">
@@ -75,8 +86,9 @@ const ProblemStatement = ({
                     </>
                 )}
                 <div className="flex-1">
-                    <Stats isDisabled={isDisabled} labId={labId} render={render} setRender={setRender} />
-
+                    {statsDisabled == true ? null :
+                    <Stats isDisabled={statsDisabled} labId={labId} render={render} setRender={setRender} />
+                    }
                 </div>
             </div>
             <Timer startsAt={startsAt} />
