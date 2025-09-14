@@ -32,9 +32,9 @@ const BugPage = () => {
             ),
             startsAt:"2025-09-14T18:00:00+05:30",
             isDisabled: !true,
-            statsDisabled: true,
+            statsDisabled: false,
             labId: 2,
-            leaderboard: true
+            leaderboard: !true
         },
         {
             heading: "Drunk Bob and Missing Auth",
